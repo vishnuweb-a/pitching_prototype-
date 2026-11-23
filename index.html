@@ -3005,6 +3005,80 @@
           transition: none !important;
         }
       }
+
+      /* ---------- SHI command panel (floating launcher) ---------- */
+      .bot-launch{position:fixed;right:24px;bottom:24px;z-index:55;display:flex;align-items:flex-end;gap:12px}
+      .bot-btn{position:relative;width:64px;height:64px;border-radius:20px;background:var(--sheet-3);border:1px solid var(--rule-2);display:grid;place-items:center;box-shadow:0 20px 40px -12px rgba(0,0,0,.8),0 0 0 6px rgba(209,254,23,.04);transition:transform .15s,background-color .15s}
+      .bot-btn:hover{background:var(--hover);transform:translateY(-2px)}
+      .bot-btn[aria-expanded="true"]{box-shadow:0 0 0 1px rgba(209,254,23,.45),0 0 24px rgba(209,254,23,.15)}
+      .bot-badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:99px;background:var(--haldi);color:#1A1A1A;font-size:12px;font-weight:700;display:grid;place-items:center;padding:0 6px;border:2px solid var(--desk)}
+      .bot-bubble{position:relative;max-width:240px;background:var(--sheet-3);border:1px solid var(--rule-2);border-radius:18px 18px 4px 18px;padding:12px 14px;font-size:13.5px;line-height:1.45;color:var(--ink);box-shadow:0 20px 40px -12px rgba(0,0,0,.7);margin-bottom:14px}
+      .bot-bubble b{color:var(--brand);font-weight:600}
+      .bot-bubble small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+      .bot-panel{position:fixed;right:24px;bottom:104px;z-index:56;width:420px;height:min(700px,calc(100vh - 128px));display:flex;flex-direction:column;border-radius:20px;background:#1C1E20;border:1px solid var(--rule-2);box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden;animation:rise .35s ease-out}
+      .bp-head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--rule)}
+      .bp-head svg{flex:none}
+      .bp-title{flex:1;min-width:0}
+      .bp-title h2{font-family:"Space Grotesk",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:-.03em;font-size:15px;margin:0;color:var(--ink)}
+      .bp-title p{margin:2px 0 0;font-size:12px;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+      .bp-x{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:var(--ink-2);flex:none}
+      .bp-x:hover{background:var(--hover);color:var(--ink)}
+      .bp-tabs{display:flex;gap:4px;padding:10px 16px 0}
+      .bp-body{flex:1;min-height:0;overflow-y:auto;padding:14px 16px 16px;display:flex;flex-direction:column;gap:16px}
+      .bp-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+      .bp-kpi{background:var(--sheet-2);border:1px solid var(--rule);border-radius:12px;padding:10px 12px}
+      .bp-kpi b{display:block;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:24px;line-height:1.2;color:var(--ink)}
+      .bp-kpi span{font-size:12px;color:var(--muted)}
+      .bp-sec{display:flex;flex-direction:column}
+      .bp-h{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+      .bp-h a{color:var(--brand);font-weight:600;text-decoration:none}
+      .bp-h span{display:inline-flex;align-items:center;gap:6px}
+      .bp-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--rule);min-width:0}
+      .bp-row:last-child{border-bottom:0}
+      .bp-dot{flex:none;width:18px;height:10px;border-radius:99px;background:rgba(255,181,71,.18);display:grid;place-items:center}
+      .bp-dot::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--haldi)}
+      .bp-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+      .bp-tx b{font-size:13.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .bp-tx small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .bp-run{padding:8px 0;display:flex;flex-direction:column;gap:5px;font-size:13px;border-bottom:1px solid var(--rule)}
+      .bp-run:last-child{border-bottom:0}
+      .bp-run b{font-weight:600;color:var(--ink)}
+      .bp-run small{font-size:12px;color:var(--ink-2)}
+      .bp-bar{height:4px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+      .bp-bar i{display:block;height:100%;border-radius:99px;background:var(--brand)}
+      .bp-bar.amb i{background:var(--haldi)}
+      .bp-bar.done i{background:var(--ok)}
+      .bp-gate{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule);font-size:13px}
+      .bp-gate:last-child{border-bottom:0}
+      .bp-gate .bp-tx{grid-column:1/-1}
+      .bp-gate .num{font-size:12px;color:var(--ink-2)}
+      .bp-msgs{display:flex;flex-direction:column;gap:14px}
+      .bp-msg{display:flex;gap:10px;align-items:flex-start}
+      .bp-msg svg{flex:none}
+      .bp-msg.me{justify-content:flex-end}
+      .bp-bub{max-width:300px;background:var(--sheet-3);border-radius:14px;padding:10px 12px;font-size:13.5px;line-height:1.5;color:var(--ink);min-width:0;overflow-wrap:anywhere}
+      .bp-msg.me .bp-bub{background:var(--brand-soft);border:1px solid rgba(209,254,23,.25)}
+      .bp-bub ul{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+      .bp-bub p{margin:0}
+      .bp-bub .btn{margin-top:4px}
+      .bp-note{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px;font-size:11.5px;color:var(--muted)}
+      .bp-foot{border-top:1px solid var(--rule);padding:10px 16px 14px;display:flex;flex-direction:column;gap:10px}
+      .bp-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+      .bp-chips::-webkit-scrollbar{display:none}
+      .bp-chip{flex:none;border:1px solid var(--rule-2);border-radius:99px;padding:5px 10px;font-size:12px;color:var(--ink-2);white-space:nowrap}
+      .bp-chip:hover{color:var(--ink);background:var(--hover)}
+      .bp-input{display:flex;align-items:center;gap:8px;background:var(--sheet-3);border:1px solid transparent;border-radius:14px;padding:6px 6px 6px 14px}
+      .bp-input:focus-within{border-color:var(--brand)}
+      .bp-input input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--ink);font-size:14px}
+      .bp-send{width:36px;height:36px;border-radius:10px;background:var(--brand);color:#0F1113;display:grid;place-items:center;flex:none}
+      .has-bot .toast{bottom:104px}
+      @media (max-width:640px){
+        .bot-panel{right:8px;left:8px;width:auto;bottom:96px}
+        .bot-launch{right:16px;bottom:16px}
+        .bot-bubble{display:none}
+        .has-bot .toast{bottom:96px}
+      }
+      @media (prefers-reduced-motion: reduce){.bot-btn:hover{transform:none}}
     </style>
   </head>
   <body>
@@ -3042,6 +3116,7 @@
       </div>
     </div>
     <dialog id="dlg" class="modal"></dialog>
+    <div id="bot"></div>
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
     <script>
@@ -3770,6 +3845,15 @@
         ],
       };
 
+      // SHI command panel: agents running right now (seeded)
+      const BOT_RUNNING = [
+        ["Storyboard", "kolam", "Scenes 19–21, frame 4 of 6", 66],
+        ["Scheduling", "kolam", "Stripboard v5 after permits", 40],
+        ["Dialogue Polish", "tiffin-queen", "Episodes 47–52", 55],
+        ["Tone Reel", "echo-7", "Corridor shots, 18 of 24", 75],
+        ["Edit Assist", "ai-video-demo", "Rough cut v2", 30],
+      ];
+
       /* ===== state (per viewer, resettable) ===== */
       const KEY = "zeebraa-v3-state";
       const fresh = () => ({
@@ -3828,6 +3912,10 @@
         homeTab: "Story",
         teamTab: null,
         run: { agent: "Scheduling", mode: "Auto", tier: "Standard", pin: "Claude Sonnet 5.5" },
+        botOpen: false,
+        botTab: "Overview",
+        botHint: true,
+        botChat: [{ u: "shi", seed: 1 }],
       });
       let S = fresh();
       let SAVED_V = 2; // data version of what was in storage; 1 = saved before the demo layer
@@ -4069,6 +4157,7 @@
       };
       IP.scissors = "M6 7a2.5 2.5 0 1 0 0 .01M6 17a2.5 2.5 0 1 0 0 .01M8 8l12 9M8 16l12-9";
       IP.wave = "M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2";
+      IP.x = "M6 6l12 12M18 6L6 18";
       const ic = (n, s = 24, w = 2) =>
         `<svg class="glyph" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${IP[n]}"/></svg>`;
       const MARK = (s = 22) =>
@@ -8219,10 +8308,194 @@ m16|Gigs|Music Video|Colourist, 2 days|Tamil, English|Chennai|₹40,000 fixed|�
         }
       });
 
+      /* ===== SHI command panel (floating launcher, separate from ⌘K) ===== */
+      const BOT = (n = 40) =>
+        `<svg width="${n}" height="${n}" viewBox="0 0 48 48" aria-hidden="true"><path d="M18 9l3-6M23.5 9l3-6M29 9l3-6" stroke="#F7F7F8" stroke-width="2.6" stroke-linecap="round"/><rect x="5" y="9" width="38" height="31" rx="12" fill="#F7F7F8"/><rect x="2" y="20" width="4" height="9" rx="2" fill="#D1FE17"/><rect x="42" y="20" width="4" height="9" rx="2" fill="#D1FE17"/><rect x="10" y="15" width="28" height="19" rx="8" fill="#0F1113"/><circle cx="18.5" cy="23.5" r="2.8" fill="#D1FE17"/><circle cx="29.5" cy="23.5" r="2.8" fill="#D1FE17"/><path d="M21.5 29c1.6 1.3 3.4 1.3 5 0" stroke="#D1FE17" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>`;
+      const botFirst = () => ((ACCT(S.user) || {}).n || "there").split(/\s+/)[0];
+      const botDec = () => ALLDEC().filter((d) => !S.decisions[d.id]);
+      const botChips = () => [
+        "What needs me today?",
+        "Spend this week",
+        "Which gates are close?",
+        "Summarise " + projName(S.proj || "kolam"),
+      ];
+      const botPct = (g) => (g.signed || !g.total ? 100 : Math.round((g.ready / g.total) * 100));
+      // "Decide by 28 Oct" → sortable number; undated or overdue → Infinity
+      const botDue = (d) => {
+        const m = /(\d+) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/.exec(d.due);
+        return m ? "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(m[2]) * 10 + +m[1] : Infinity;
+      };
+      const botGreet = () =>
+        `Morning, ${esc(botFirst())}. ${BOT_RUNNING.length} agents are running across ${DATA.projects.length} projects. Ask me anything about the slate.`;
+      const botNote = () =>
+        `<p class="bp-note">${chip("ai", "AI draft")}<span>From the IP Brain. I can’t sign or approve anything.</span></p>`;
+      const pl = (n, w) => n + " " + w + (n === 1 ? "" : "s");
+      function botAnswer(q) {
+        const dec = botDec(),
+          lc = q.toLowerCase(),
+          pm = DATA.projects.find((p) => lc.includes(p.name.toLowerCase()));
+        let h;
+        if (/summar/.test(lc) && (pm || /this project/.test(lc))) {
+          const p = pm ? pm.id : S.proj || "kolam",
+            fc = forecast();
+          h = `<p><b>${esc(projName(p))}</b>. ${esc(projAnswer(p, "gate"))} ${esc(p === "kolam" ? "Shoot Ready forecast: " + fc.date + ", " + fc.conf + "% confidence." : pdOf(p).forecast)}</p><a class="btn btn-sm" href="#${p}.command">Open Command Centre</a>`;
+        } else if (/block|stuck/.test(lc)) {
+          const k = gateOf("kolam"),
+            od = dec.filter((d) => /overdue/.test(d.due)),
+            hi = ALLFLAGS().filter((f) => !S.flags[f.id] && f.sev === "High"),
+            hp = [...new Set(hi.map((f) => projName(f.p)))],
+            first = dec.filter((d) => botDue(d) < Infinity).sort((a, b) => botDue(a) - botDue(b))[0];
+          h = `<p>Three things hold the most work:</p><ul>
+<li><b>${esc(projName("kolam"))}</b>: Gate ${k.n} is ${k.ready} of ${k.total}.${od.map((d) => ` ${esc(d.title)} (${esc(projName(d.p))}) is ${esc(d.due)}.`).join("")}</li>
+<li><b>${pl(hi.length, "high-risk flag")}</b>${hp.length ? ", on " + hp.map(esc).join(", ") : ""}.</li>
+<li><b>${pl(dec.length, "decision")}</b> wait for you${first ? `; the earliest is ${esc(first.title)} (${esc(projName(first.p))}), ${esc(first.due.replace("Decide by", "due"))}` : ""}.</li></ul>`;
+        } else if (/needs? me|today|decide|decision/.test(lc)) {
+          h = dec.length
+            ? `<p>${pl(dec.length, "decision")} wait for your signature:</p><ul>${dec
+                .slice(0, 5)
+                .map(
+                  (d) =>
+                    `<li><b>${esc(d.title)}</b><br><span class="muted">${esc(projName(d.p))} · ${esc(d.due)}</span><br><a class="btn btn-sm btn-primary" href="#${d.p}.command">Open decision</a></li>`,
+                )
+                .join(
+                  "",
+                )}</ul>${dec.length > 5 ? `<p>And ${dec.length - 5} more on the <a class="link" href="#slate">Slate</a>.</p>` : ""}`
+            : `<p>Nothing waits for you. Every decision is signed.</p>`;
+        } else if (/spend|credit|cost/.test(lc)) {
+          const top = DATA.projects
+            .map((p) => [p, projUsage(p.id)])
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 3);
+          h = `<p>${fmtInt(S.used)} credits used this month, ${fmtInt(S.credits)} left. Top projects by agent credits:</p><ul>${top.map(([p, u]) => `<li><b>${esc(p.name)}</b>: ${fmtInt(u)} credits</li>`).join("")}</ul>`;
+        } else if (/gate|close|ready/.test(lc)) {
+          const gs = DATA.projects
+            .map((p) => [p, gateOf(p.id)])
+            .sort((a, b) => botPct(b[1]) - botPct(a[1]))
+            .slice(0, 4);
+          h = `<p>Closest to their next gate:</p><ul>${gs.map(([p, g]) => `<li><b>${esc(p.name)}</b>: Gate ${g.n}, ${g.ready}/${g.total} ready</li>`).join("")}</ul>`;
+        } else
+          h = `<p>I can answer about decisions, spend, gates and project summaries. Try one of these:</p><div class="bp-chips" style="flex-wrap:wrap;margin-top:8px">${botChips()
+            .map((c) => `<button class="bp-chip" data-act="botAsk" data-q="${esc(c)}">${esc(c)}</button>`)
+            .join("")}</div>`;
+        return h + botNote();
+      }
+      const botMsg = (m) =>
+        m.u === "me"
+          ? `<div class="bp-msg me"><div class="bp-bub">${esc(m.m)}</div></div>`
+          : `<div class="bp-msg">${BOT(28)}<div class="bp-bub">${m.seed ? `<p>${botGreet()}</p>` : m.m}</div></div>`;
+      function botOverview(dec) {
+        const flags = ALLFLAGS().filter((f) => !S.flags[f.id]).length;
+        return `<div class="bp-kpis">${[
+          [DATA.projects.length, "Projects live"],
+          [BOT_RUNNING.length, "Agents running"],
+          [dec.length, "Decisions need you"],
+          [flags, "Guardian flags open"],
+        ]
+          .map((k) => `<div class="bp-kpi"><b class="num">${k[0]}</b><span>${k[1]}</span></div>`)
+          .join("")}</div>
+<section class="bp-sec" aria-label="Needs you"><div class="bp-h"><span>Needs you</span><a href="#slate">Slate</a></div>${
+          dec
+            .slice(0, 4)
+            .map(
+              (d) =>
+                `<div class="bp-row"><span class="bp-dot" aria-hidden="true"></span><span class="bp-tx"><b>${esc(d.title)}</b><small>${esc(projName(d.p))} · ${esc(d.due)}</small></span><a class="btn btn-sm" href="#${d.p}.command">Review</a></div>`,
+            )
+            .join("") || `<p class="sub" style="margin:0">Nothing waits for you.</p>`
+        }</section>
+<section class="bp-sec" aria-label="Running now"><div class="bp-h"><span>Running now</span><span><span class="rec" aria-hidden="true"></span>live</span></div>${BOT_RUNNING.map(
+          (a) =>
+            `<div class="bp-run"><span><b>${a[0]}</b> <span class="muted">· ${esc(projName(a[1]))}</span></span><small>${a[2]}</small><div class="bp-bar" role="progressbar" aria-label="${a[0]} progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${a[3]}"><i style="width:${a[3]}%"></i></div></div>`,
+        ).join("")}</section>
+<section class="bp-sec" aria-label="Gates"><div class="bp-h"><span>Gates</span><span>ready</span></div>${DATA.projects
+          .map((p) => {
+            const g = gateOf(p.id),
+              pc = botPct(g);
+            return `<div class="bp-gate"><span class="bp-tx"><b>${esc(p.name)}</b><small>Gate ${g.n}: ${esc(g.name)}</small></span><div class="bp-bar ${pc >= 100 ? "done" : "amb"}" aria-hidden="true"><i style="width:${pc}%"></i></div><span class="num">${g.ready}/${g.total}</span></div>`;
+          })
+          .join("")}</section>`;
+      }
+      function renderBot() {
+        const el = $("#bot");
+        document.body.classList.toggle("has-bot", !!S.user);
+        if (!S.user) {
+          el.innerHTML = "";
+          return;
+        }
+        // keep what the viewer typed, focus and scroll across re-renders
+        const oi = $("#botIn"),
+          val = oi ? oi.value : "",
+          foc = !!oi && document.activeElement === oi,
+          ob = $("#botBody"),
+          st = ob ? ob.scrollTop : 0,
+          sameTab = ob && ob.dataset.tab === S.botTab;
+        const dec = botDec(),
+          n = dec.length,
+          tab = S.botTab === "Chat" ? "Chat" : "Overview";
+        el.innerHTML =
+          `<div class="bot-launch">${
+            S.botHint && !S.botOpen
+              ? `<div class="bot-bubble">Hi ${esc(botFirst())}, <b>${pl(n, "thing")}</b> need${n === 1 ? "s" : ""} you today.<small>Tap me for the slate overview.</small></div>`
+              : ""
+          }<button class="bot-btn" id="botBtn" data-act="botToggle" aria-label="Open SHI command panel" aria-expanded="${!!S.botOpen}" aria-controls="botPanel">${BOT(40)}${n ? `<span class="bot-badge num" aria-hidden="true">${n}</span>` : ""}</button></div>` +
+          (S.botOpen
+            ? `<section class="bot-panel" id="botPanel" role="dialog" aria-label="SHI command panel">
+<div class="bp-head">${BOT(36)}<div class="bp-title"><h2>SHI command panel</h2><p><span class="rec" aria-hidden="true"></span>${BOT_RUNNING.length} agents running · ${n} need you</p></div><button class="bp-x" data-act="botClose" aria-label="Close">${ic("x", 16)}</button></div>
+<div class="bp-tabs" role="tablist" aria-label="SHI views">${["Overview", "Chat"].map((t) => `<button class="tab" role="tab" id="botTab${t}" aria-selected="${t === tab}" aria-controls="botBody" data-act="botTab" data-t="${t}">${t}</button>`).join("")}</div>
+<div class="bp-body thin-scroll" id="botBody" role="tabpanel" aria-labelledby="botTab${tab}" data-tab="${tab}">${
+                tab === "Chat"
+                  ? `<div class="bp-msgs" id="botMsgs" aria-live="polite">${S.botChat.map(botMsg).join("")}</div>`
+                  : botOverview(dec)
+              }</div>
+<div class="bp-foot"><div class="bp-chips thin-scroll" aria-label="Suggestions">${botChips()
+                .map((c) => `<button class="bp-chip" data-act="botAsk" data-q="${esc(c)}">${esc(c)}</button>`)
+                .join(
+                  "",
+                )}</div><div class="bp-input"><label for="botIn" class="sr">Ask SHI</label><input id="botIn" placeholder="Ask SHI about any project…" autocomplete="off"><button class="bp-send" data-act="botSend" aria-label="Send">${ic("arrow", 18)}</button></div></div>
+</section>`
+            : "");
+        const ni = $("#botIn");
+        if (ni) {
+          ni.value = val;
+          if (foc) ni.focus();
+        }
+        const nb = $("#botBody");
+        if (nb) nb.scrollTop = sameTab ? st : tab === "Chat" ? nb.scrollHeight : 0;
+      }
+      function botSet(open) {
+        S.botOpen = open;
+        if (open) S.botHint = false;
+        save();
+        renderBot();
+        if (open) $("#botIn").focus();
+        else $("#botBtn").focus();
+      }
+      function botSend(q) {
+        q = (q || "").trim();
+        if (!q) return;
+        const msgs = [
+          { u: "me", m: q },
+          { u: "shi", m: botAnswer(q) },
+        ];
+        S.botChat.push(...msgs);
+        save();
+        const list = $("#botMsgs");
+        if (list) list.insertAdjacentHTML("beforeend", msgs.map(botMsg).join("")); // append so the live region announces it
+        else {
+          S.botTab = "Chat";
+          renderBot();
+        }
+        const i = $("#botIn"),
+          b = $("#botBody");
+        i.value = "";
+        i.focus();
+        b.scrollTop = b.scrollHeight;
+      }
+
       /* ===== render ===== */
       function render() {
         if (!S.user) {
           showLogin();
+          renderBot();
           save();
           return;
         }
@@ -8240,6 +8513,7 @@ m16|Gigs|Music Video|Colourist, 2 days|Tamil, English|Chennai|₹40,000 fixed|�
         else html = noAccess(r, true);
         $("#page").innerHTML = html;
         if (r.page === "marketplace") applyMkt();
+        renderBot();
         save();
       }
       let toastT;
@@ -8334,6 +8608,20 @@ m16|Gigs|Music Video|Colourist, 2 days|Tamil, English|Chennai|₹40,000 fixed|�
         const A = b.dataset.act;
         if (A === "ask") {
           openAsk();
+          return;
+        }
+        if (A === "botToggle" || A === "botClose") {
+          botSet(A === "botToggle" && !S.botOpen);
+          return;
+        }
+        if (A === "botTab") {
+          S.botTab = b.dataset.t;
+          save();
+          renderBot();
+          return;
+        }
+        if (A === "botSend" || A === "botAsk") {
+          botSend(A === "botAsk" ? b.dataset.q : $("#botIn").value);
           return;
         }
         if (A === "signout") {
@@ -9016,6 +9304,16 @@ m16|Gigs|Music Video|Colourist, 2 days|Tamil, English|Chennai|₹40,000 fixed|�
         if (e.key === "Escape" && !$("#ask").hidden) {
           e.preventDefault();
           closeAsk();
+          return;
+        }
+        if (e.key === "Escape" && S.botOpen && S.user && !$("#dlg").open) {
+          e.preventDefault();
+          botSet(false);
+          return;
+        }
+        if (e.key === "Enter" && e.target.id === "botIn") {
+          e.preventDefault();
+          botSend(e.target.value);
           return;
         }
         if (e.key === "Enter" && e.target.id === "chatIn") {
