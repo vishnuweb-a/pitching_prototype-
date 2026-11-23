@@ -3127,7 +3127,6 @@
       const DATA = {
         projects: [
           { id: "kolam", name: "Kolam", template: "Theatrical feature", stage: "Pre-production" },
-          { id: "tiffin-queen", name: "The Tiffin Queen", template: "Micro-drama", stage: "Write" },
           { id: "last-ferry", name: "Last Ferry to Rameswaram", template: "Theatrical feature", stage: "Ideate" },
           {
             id: "salt-merchant",
@@ -3137,7 +3136,6 @@
           },
           { id: "radio-thatha", name: "Radio Thatha", template: "OTT series", stage: "Ideate" },
           { id: "echo-7", name: "Echo 7", template: "Theatrical feature", stage: "Ideate" },
-          { id: "vertical-beats", name: "Vertical Beats", template: "Micro-drama", stage: "Write" },
           { id: "ai-video-demo", name: "AI Video Demo", template: "Creator video", stage: "Make" },
           { id: "brand-campaign", name: "Brand Campaign", template: "Brand ad", stage: "Concept" },
           { id: "music-video", name: "Music Video", template: "Reels and social", stage: "Prep" },
@@ -3500,12 +3498,10 @@
           t: "Studio",
           proj: [
             "kolam",
-            "tiffin-queen",
             "last-ferry",
             "salt-merchant",
             "radio-thatha",
             "echo-7",
-            "vertical-beats",
             "ai-video-demo",
             "brand-campaign",
             "music-video",
@@ -3524,7 +3520,7 @@
           i: "DM",
           r: "Filmmaker",
           t: "Creator",
-          proj: ["tiffin-queen", "radio-thatha", "vertical-beats", "ai-video-demo"],
+          proj: ["radio-thatha", "ai-video-demo"],
         },
       ];
       const ROLEPERM = {
@@ -3589,7 +3585,6 @@
         "VFX-heavy feature",
         "OTT or TV series",
         "Documentary",
-        "Micro-drama",
         "Brand ad",
         "Anime or animation",
         "Reels and social",
@@ -3711,7 +3706,7 @@
           i: "KT",
           r: "Director",
           t: "Studio",
-          proj: ["tiffin-queen", "vertical-beats", "music-video"],
+          proj: ["music-video"],
         },
         { id: "jb", n: "Joseph B.", i: "JB", r: "Writer", t: "Studio", proj: ["last-ferry", "echo-7", "radio-thatha"] },
         {
@@ -3736,7 +3731,7 @@
           i: "PL",
           r: "Production Manager",
           t: "Studio",
-          proj: ["brand-campaign", "music-video", "vertical-beats"],
+          proj: ["brand-campaign", "music-video"],
         },
       );
       const DEMO_COLLAB = [
@@ -3769,14 +3764,6 @@
           ),
           CH("sp", "10:20", "I’ll chase the land records office permit today. Revathi, can you call the temple trust?"),
           CH("rk", "10:24", "Calling them at 12."),
-        ],
-        "tiffin-queen": [
-          CH("dm", "10:05", "Episodes 1 to 40 are locked. Starting 41 today."),
-          CH("kt", "10:12", "Episode 44 feels flat at the top. Can we open on the ledger?"),
-          CH("sys", "10:15", "Continuity Guardian raised: episode 44 resolves its hook off-screen."),
-          CH("dm", "10:18", "@SHI how many episodes are still unlocked?"),
-          CH("shi", "10:18", "20 episodes are unlocked: 41 to 60. 12 are drafted and 8 are in Dialogue Polish."),
-          CH("kt", "10:31", "I’ll board the vertical opener for 44 once the beat is in."),
         ],
         "last-ferry": [
           CH("jb", "09:40", "Logline is in the Idea Card: a ferryman’s last crossing before the cyclone."),
@@ -3812,14 +3799,6 @@
           CH("ns", "11:25", "@SHI how much have we spent on the reel?"),
           CH("shi", "11:25", "Tone Reel has used 810 credits today, 82% of its cap."),
         ],
-        "vertical-beats": [
-          CH("dm", "09:15", "Episodes 21 to 24 are drafted. The rooftop gig is episode 23."),
-          CH("kt", "09:28", "Rooftop at golden hour. Pooja, can we get the Bandra terrace?"),
-          CH("pl", "09:44", "Terrace is free on 8 Dec. Permit takes a week."),
-          CH("sys", "10:00", "Rights Guardian raised: the episode 7 lyric follows a released song."),
-          CH("dm", "10:05", "@SHI is episode 7 the only lyric problem?"),
-          CH("shi", "10:05", "Yes. Only episode 7 is flagged. Episodes 1 to 20 are otherwise clear."),
-        ],
         "ai-video-demo": [
           CH("dm", "11:40", "Rough cut is 6:10. Can we lose 10 seconds?"),
           CH("ak", "11:52", "Trim the intro bumper. I’ll keep the hook."),
@@ -3849,7 +3828,6 @@
       const BOT_RUNNING = [
         ["Storyboard", "kolam", "Scenes 19–21, frame 4 of 6", 66],
         ["Scheduling", "kolam", "Stripboard v5 after permits", 40],
-        ["Dialogue Polish", "tiffin-queen", "Episodes 47–52", 55],
         ["Tone Reel", "echo-7", "Corridor shots, 18 of 24", 75],
         ["Edit Assist", "ai-video-demo", "Rough cut v2", 30],
       ];
@@ -3936,6 +3914,9 @@
         if (!DATA.projects.find((p) => p.id === q.id)) DATA.projects.push(q);
       });
       S.collab = S.collab.map((c) => (typeof c === "string" ? { e: c, r: "Writer" } : c));
+      // saved state may point at a project that was removed from the demo
+      if (!DATA.projects.find((p) => p.id === S.proj)) delete S.proj;
+      if (!DATA.projects.find((p) => p.id === S.ipu)) S.ipu = "kolam";
       if (SAVED_V < 2) {
         // v1 → v2: add demo seeds without touching what the viewer already did
         if (!S.plan) S.plan = "Pro Plus";
@@ -4236,9 +4217,7 @@
         "last-ferry": "ferry",
         "radio-thatha": "radio",
         "salt-merchant": "ghat",
-        "tiffin-queen": "kitchen",
         "echo-7": "orbit",
-        "vertical-beats": "terrace",
         "ai-video-demo": "station",
         "brand-campaign": "market",
         "music-video": "temple",
@@ -5036,123 +5015,6 @@
         ["Catch-up on YouTube", 0.15],
       ];
       const PD = {
-        "tiffin-queen": {
-          genre: "Family comedy",
-          format: "Micro-drama, 60 × 2 min, vertical, Tamil",
-          producer: "Divya M.",
-          director: "Kavya T.",
-          writer: "Divya M.",
-          pm: "Divya M.",
-          target: "Launch 14 Dec 2026",
-          stage: 3,
-          spent: 0.19,
-          conf: 84,
-          logline:
-            "A widowed cook in Madurai turns her tiffin round into a city-wide lunch empire, one gossip-filled dabba at a time.",
-          forecast: "Script Lock is forecast for 2 Nov, 2 days ahead of plan.",
-          health: [84, 92, 90, 78],
-          lines: [
-            ["Writing", 0.06, 0.06],
-            ["Cast", 0.12, 0.11],
-            ["Shoot, 6 days", 0.14, 0.14],
-            ["Edit and subtitles", 0.06, 0.07],
-            ["Marketing", 0.04, 0.04],
-          ],
-          milestones: [
-            ["Episodes 1–40 locked", "20 Oct", "done"],
-            ["Episodes 41–60 locked", "4 Nov", "active"],
-            ["Table read with cast", "8 Nov", "next"],
-            ["Shoot block 1, Madurai", "15 Nov", "next"],
-          ],
-          gate: {
-            n: 3,
-            conds: [
-              C("Episodes 1–40 locked", "40 of 40 signed off", 1),
-              C("Episodes 41–60 locked", "12 of 20 drafted, 8 in Dialogue Polish", 0),
-              C("Every episode ends on a hook", "Episode 44 resolves its hook off-screen", 0, { flag: "tq1" }),
-              C("Song rights cleared", "3 of 3 songs licensed", 1),
-            ],
-          },
-          decisions: [
-            DC(
-              "tq-brand",
-              "Pickle brand integration in episodes 12–18",
-              "Revenue Agent",
-              "Decide by 30 Oct",
-              "take the lighter integration; it pays for the subtitles and keeps the comedy intact.",
-              [
-                ["A", "Light integration", "Jar on the kitchen shelf in 7 episodes. ₹2.4 L. No script change."],
-                ["B", "Story integration", "Meena pitches the pickle in episode 15. ₹6 L. Rewrites 2 episodes."],
-              ],
-            ),
-          ],
-          flags: [
-            FL(
-              "tq1",
-              "Continuity",
-              "Medium",
-              "Kavya T.",
-              "Episode 44 resolves the episode 43 cliffhanger off-screen",
-              "Add a 20-second opening beat to episode 44 where Meena finds the ledger.",
-              "Opening beat added to episode 44.",
-              4,
-            ),
-            FL(
-              "tq2",
-              "Platform Policy",
-              "Low",
-              "Divya M.",
-              "Episode 9 thumbnail shows a branded soft drink without a disclosure",
-              "Swap the bottle in the thumbnail for an unbranded steel tumbler.",
-              "Thumbnail updated with an unbranded tumbler.",
-              2,
-            ),
-          ],
-          activity: [
-            AC("10:20", "Dialogue Polish", "Polished episodes 41–46 for Madurai Tamil", "Claude Sonnet 5.5", 160),
-            AC("09:05", "Table Read", "Voiced episodes 1–10 for timing", "ElevenLabs", 90),
-            AC(
-              "Yesterday",
-              "Coverage",
-              "Scored episodes 31–40: hook strength 8.2 of 10",
-              "Claude Haiku 5.5",
-              20,
-              "Draft tier",
-            ),
-          ],
-          ip: {
-            concept: ["Tiffin empire", "A widowed cook turns gossip and lunch boxes into a business.", "Divya M."],
-            chars: [
-              ["Meena", "The cook. Sharp tongue, sharper accounts."],
-              ["Selvi", "Her daughter, who wants out of the kitchen."],
-              ["Raghavan", "Rival mess owner across the street."],
-            ],
-            assets: [
-              ["Dabba logo v2", "Show identity, approved"],
-              ["Opening sting", "3-second audio, licensed"],
-            ],
-            contracts: [
-              ["Writer agreement, Divya M.", "Story and screenplay, 100% owned by the creator"],
-              ["Pickle brand term sheet", "Draft, unsigned"],
-            ],
-          },
-          fin: {
-            stack: [
-              ["Creator funds", 0.12],
-              ["StreamBay Shorts, platform advance", 0.22],
-              ["Brand integration", 0.06],
-            ],
-            investor: ["StreamBay Shorts", 0.22],
-            rev: [0.35, 0.7, 1.2],
-            windows: SHORT_WIN,
-            pa: 0.04,
-          },
-          media: [
-            MD("Storyboard frame, vertical (9:16)", "Approved", "Nano Banana 2", "Standard", 5, "Episode 41 opener"),
-            MD("Concept art", "AI draft", "Seedream 5.0 Pro", "Premium", 10, "Meena’s kitchen at dawn"),
-            MD("Generated image", "Rejected", "FLUX.2", "Draft", 3, "Episode 9 thumbnail: brand visible"),
-          ],
-        },
         "last-ferry": {
           genre: "Coastal survival thriller",
           format: "Theatrical feature, Tamil",
@@ -5566,96 +5428,6 @@
             MD("Teaser shot", "AI draft", "Kling 3.0", "Standard", 45, "Corridor, slow push"),
           ],
         },
-        "vertical-beats": {
-          genre: "Music romance",
-          format: "Micro-drama, 40 × 90 s, vertical, Hindi",
-          producer: "Divya M.",
-          director: "Kavya T.",
-          writer: "Divya M.",
-          pm: "Pooja L.",
-          target: "Launch 1 Jan 2027",
-          stage: 3,
-          spent: 0.14,
-          conf: 74,
-          logline: "A delivery rider who writes lyrics and a rooftop DJ fall in love, one 90-second episode at a time.",
-          forecast: "Script Lock is forecast for 10 Nov, 3 days after plan.",
-          health: [74, 90, 72, 86],
-          lines: [
-            ["Writing", 0.05, 0.05],
-            ["Cast", 0.1, 0.1],
-            ["Shoot", 0.12, 0.13],
-            ["Music", 0.05, 0.05],
-            ["Edit", 0.04, 0.04],
-          ],
-          milestones: [
-            ["Episodes 1–20 locked", "18 Oct", "done"],
-            ["Episodes 21–40 locked", "10 Nov", "active"],
-            ["Song demos", "12 Nov", "next"],
-            ["Shoot, Mumbai", "6 Dec", "next"],
-          ],
-          gate: {
-            n: 3,
-            conds: [
-              C("Episodes 1–20 locked", "20 of 20 signed off", 1),
-              C("Episodes 21–40 locked", "9 of 20 drafted", 0),
-              C("Song lyrics are original", "Episode 7 lyric follows a released song", 0, { flag: "vb1" }),
-              C("Every episode under 95 seconds", "Longest is 92 seconds", 1),
-            ],
-          },
-          decisions: [
-            DC(
-              "vb-song",
-              "Original songs or licensed covers",
-              "Rights Clearance",
-              "Decide by 1 Nov",
-              "original songs; you own the masters and avoid per-territory licences.",
-              [
-                ["A", "4 original songs", "₹5 L to the composer. The creator owns the masters."],
-                ["B", "Licensed covers", "₹9 L in licences. Recognisable hooks."],
-              ],
-            ),
-          ],
-          flags: [
-            FL(
-              "vb1",
-              "Rights",
-              "High",
-              "Kavya T.",
-              "A lyric in episode 7 closely follows a released film song",
-              "Rewrite the episode 7 hook with the composer.",
-              "Episode 7 hook rewritten with the composer.",
-              6,
-            ),
-          ],
-          activity: [
-            AC("10:50", "Draft Writer", "Drafted episodes 21–24", "Claude Sonnet 5.5", 160),
-            AC("09:30", "Coverage", "Flagged slow middles in episodes 15 and 18", "Claude Haiku 5.5", 10, "Draft tier"),
-            AC("Yesterday", "Table Read", "Voiced episodes 1–20 for timing", "ElevenLabs", 60),
-          ],
-          ip: {
-            concept: ["Vertical beats", "Love in 90-second instalments, scored by the city.", "Divya M."],
-            chars: [
-              ["Kabir", "Delivery rider who writes lyrics"],
-              ["Tara", "Rooftop DJ"],
-            ],
-            assets: [["4 song demos", "2 approved"]],
-            contracts: [["Composer agreement", "Draft; masters owned by the creator"]],
-          },
-          fin: {
-            stack: [
-              ["Creator funds", 0.1],
-              ["StreamBay Shorts, platform advance", 0.2],
-            ],
-            investor: ["StreamBay Shorts", 0.2],
-            rev: [0.3, 0.6, 1.0],
-            windows: SHORT_WIN,
-            pa: 0.03,
-          },
-          media: [
-            MD("Storyboard frame, vertical (9:16)", "AI draft", "Nano Banana 2", "Standard", 5, "Episode 23, rooftop"),
-            MD("Teaser shot, vertical (9:16)", "Approved", "Kling 3.0", "Standard", 45, "Launch teaser"),
-          ],
-        },
         "ai-video-demo": {
           genre: "Explainer",
           format: "Creator video, 6 min, YouTube, English",
@@ -6027,24 +5799,10 @@
             ["Zeebraa Studio", "Producer", 30],
           ],
         },
-        "tiffin-queen": {
-          formats: [
-            ["Micro-drama, 60 episodes", "Write"],
-            ["Cookbook, Meena’s 30 tiffins", "Idea"],
-            ["Season 2, the mess wars", "Idea"],
-          ],
-          chars: ["Meena", "Selvi", "Raghavan"],
-          splits: [
-            ["Divya M.", "Creator and owner", 80],
-            ["Kavya T.", "Director, backend share", 10],
-            ["Cast pool", "Profit participation", 10],
-          ],
-        },
       };
       const IPU_FORMATS = [
         "Feature film",
         "OTT series",
-        "Micro-drama",
         "Audio drama",
         "Graphic novel",
         "Podcast",
@@ -6054,13 +5812,10 @@
       const USAGE = [
         ["24 Oct", "Tone Reel", "Kling 3.0", "echo-7", 810],
         ["24 Oct", "Storyboard", "Seedream 5.0 Pro", "kolam", 840],
-        ["24 Oct", "Dialogue Polish", "Claude Sonnet 5.5", "tiffin-queen", 160],
         ["23 Oct", "Scheduling", "Claude Sonnet 5.5", "kolam", 220],
         ["23 Oct", "Storyboard", "Nano Banana 2", "ai-video-demo", 210],
-        ["22 Oct", "Table Read", "ElevenLabs", "tiffin-queen", 90],
         ["22 Oct", "Casting look-tests", "Seedream 5.0 Pro", "kolam", 1250],
         ["21 Oct", "Storyboard", "Nano Banana 2", "music-video", 170],
-        ["21 Oct", "Draft Writer", "Claude Sonnet 5.5", "vertical-beats", 160],
         ["20 Oct", "Budget", "Claude Haiku 5.5", "kolam", 30],
       ];
       const MONTHS = [
@@ -6090,11 +5845,11 @@ Story Bible|Keeps the world’s rules and facts in one place.|Logged Kumbakonam,
 Beat Board|Lays out beats and turns across the acts.|Moved Kolam’s records office to the interval.
 Research Wall|Collects visual and historical references.|Gathered 22 salt-pan references for The Salt Merchant’s Daughter.
 Tone Reel|Generates a short reel that sets the look and pace.|Generated 18 corridor shots for Echo 7.
-Draft Writer|Drafts scenes and episodes in the project’s voice.|Drafted Vertical Beats episodes 21–24.
-Dialogue Polish|Tightens dialogue and fixes dialect.|Polished Tiffin Queen episodes 41–46 for Madurai Tamil.
+Draft Writer|Drafts scenes and episodes in the project’s voice.|Drafted 14 of 22 beats of the Radio Thatha pilot outline.
+Dialogue Polish|Tightens dialogue and fixes dialect.|Polished Kolam draft 4 dialogue for Kumbakonam Tamil.
 Revision Tracker|Tracks every change between drafts.|Logged scene 88’s cut in Kolam draft 4.
-Table Read|Voices the script to time it and hear it.|Timed Tiffin Queen episodes 1–10.
-Coverage|Scores drafts the way a studio reader would.|Flagged slow middles in Vertical Beats episodes 15 and 18.
+Table Read|Voices the script to time it and hear it.|Timed the Kolam draft 4 read-through.
+Coverage|Scores drafts the way a studio reader would.|Flagged a slow act two in The Salt Merchant’s Daughter.
 Registration|Prepares script registration filings.|Registered Kolam draft 4.
 Rights Clearance|Checks music, archive and likeness rights.|Flagged unlicensed archive radio audio in Radio Thatha.
 Watermark|Watermarks every shared copy with the viewer’s name.|Watermarked the Kolam script sent to StreamBay.
@@ -6140,10 +5895,10 @@ Revenue Tracker|Tracks revenue by window and territory.|Set up Kolam’s March 2
         [["Budgets", "Stripboards", "Cost reports"], ["kolam", "music-video"], "Kolam stripboard v4 check", 15],
         [["Previs", "CG supervision", "Vendor bids"], ["echo-7"], "Echo 7 VFX feasibility", 14],
         [["Feature edits", "Series edits", "Hindi and Tamil"], ["ai-video-demo"], "Available", 11],
-        [["Songs", "Score", "Music rights"], ["vertical-beats"], "Vertical Beats song demos", 16],
+        [["Songs", "Score", "Music rights"], ["music-video"], "Available", 16],
         [["Tamil, Telugu and Hindi casting", "Look tests"], ["kolam"], "Kolam: Nila and Ravi shortlist", 10],
         [["Drama", "Ads", "Low light"], ["brand-campaign"], "Kaveri Coffee recce", 13],
-        [["Boards", "Animatics"], ["kolam", "tiffin-queen"], "Available", 9],
+        [["Boards", "Animatics"], ["kolam"], "Available", 9],
         [["OTT sales", "Territory deals"], ["kolam", "radio-thatha"], "StreamBay pitch prep", 17],
         [
           ["Model routing", "Prompt pipelines", "Content credentials"],
@@ -6165,7 +5920,6 @@ m9|Vendors|Coromandel Camera Rentals|Cinema camera and lens rental|Tamil, Englis
 m10|Vendors|Bay Light and Grip|Lighting and grip rental|Tamil, English|Chennai|₹28,000 a day|4.6|Now|Generators, cranes and LED panels.
 m11|Vendors|Pixelghat VFX|VFX studio|English, Telugu|Hyderabad|Bid per shot|4.8|From December|Space, environment and crowd work.
 m12|Vendors|Subtitle House|Subtitles and SDH|English, Hindi, Tamil, Telugu|Remote|₹120 a minute|4.9|Now|Subtitles in 14 languages with a QC pass.
-m13|Gigs|Vertical Beats|Reels editor, 3 weeks|Hindi|Mumbai|₹35,000 fixed|—|Closes 5 Nov|Cut 40 vertical episodes to 90 seconds.
 m14|Gigs|Kolam|Storyboard artist, 2 weeks|Tamil|Chennai|₹90,000 fixed|—|Closes 30 Oct|Board scenes 44 to 92 for a period drama.
 m15|Gigs|Kolam|Telugu dialogue writer for the dub|Telugu|Remote|₹1,20,000 fixed|—|Closes 8 Nov|Adapt the Telugu dub script from draft 4.
 m16|Gigs|Music Video|Colourist, 2 days|Tamil, English|Chennai|₹40,000 fixed|—|Closes 2 Nov|Grade a 3:40 music video and 6 reels.`
@@ -6259,13 +6013,6 @@ m16|Gigs|Music Video|Colourist, 2 days|Tamil, English|Chennai|₹40,000 fixed|�
           link: "kolam.command",
         },
         {
-          t: "10:05",
-          kind: "Agent finished",
-          m: "Dialogue Polish finished episodes 41–46 of The Tiffin Queen",
-          via: ["Push"],
-          link: "tiffin-queen.command",
-        },
-        {
           t: "09:40",
           kind: "Guardian alert",
           m: "Cross-Stage Guardian raised: scene 88 was cut in draft 4 but is still on Day 22",
@@ -6321,7 +6068,6 @@ m16|Gigs|Music Video|Colourist, 2 days|Tamil, English|Chennai|₹40,000 fixed|�
       };
       const HIST = [
         ["18 Oct", "kolam", "Rights", "Unlicensed font in poster A replaced with a licensed one", "Revathi K."],
-        ["14 Oct", "tiffin-queen", "Platform Policy", "Episode 3 caption corrected before upload", "Divya M."],
         ["11 Oct", "echo-7", "Budget", "Tone-reel tier capped at Premium", "Nandini S."],
         ["6 Oct", "music-video", "Security", "Watermark added to the shared treatment", "Pooja L."],
       ];
@@ -6340,8 +6086,8 @@ m16|Gigs|Music Video|Colourist, 2 days|Tamil, English|Chennai|₹40,000 fixed|�
         il: ["40 min ago", "Uploaded boards for scenes 19–21"],
         np: ["Yesterday", "Opened the Data Room"],
         so: ["2 days ago", "Read the Kolam script, watermarked"],
-        dm: ["15 min ago", "Locked episodes 1–40 of The Tiffin Queen"],
-        kt: ["30 min ago", "Asked for an opening beat in episode 44"],
+        dm: ["15 min ago", "Added a fourth member to Radio Thatha’s radio club"],
+        kt: ["30 min ago", "Shared the shot list for the music video"],
         jb: ["1 h ago", "Drafted Lineman Pillai"],
         ns: ["2 h ago", "Asked SHI about the tone-reel spend"],
         ak: ["20 min ago", "Trimmed the AI Video Demo intro"],
